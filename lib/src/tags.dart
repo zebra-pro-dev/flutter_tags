@@ -89,7 +89,7 @@ class TagsState extends State<Tags> {
 
   final List<DataList?> _list = [];
 
-  List<Item> get getAllItem => _list.toList();
+  List<Item?> get getAllItem => _list.toList();
 
   //get the current width of the screen
   void _getWidthContext() {
@@ -144,7 +144,7 @@ class TagsState extends State<Tags> {
       );
 
     return DataListInherited(
-      list: _list,
+      list: _list!,
       symmetry: widget.symmetry,
       itemCount: widget.itemCount,
       child: child,
@@ -164,11 +164,11 @@ class TagsState extends State<Tags> {
               tagsTextField: widget.textField!,
               onSubmitted: (String str) {
                 if (!widget.textField!.duplicates) {
-                  final List<DataList> lst =
+                  final List<DataList?>? lst =
                       _list.where((l) => l != null && l.title == str).toList();
 
-                  if (lst.isNotEmpty) {
-                    lst.forEach((d) => d.showDuplicate = true);
+                  if (lst!.isNotEmpty) {
+                    lst.forEach((d) => d!.showDuplicate = true);
                     return;
                   }
                 }
@@ -240,7 +240,7 @@ class DataListInherited extends InheritedWidget {
       required Widget child})
       : super(key: key, child: child);
 
-  final List<DataList>? list;
+  final List<DataList?>? list;
   final bool? symmetry;
   final int? itemCount;
 
